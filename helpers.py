@@ -1,6 +1,7 @@
 
 import os
 import numpy as np
+import matplotlib.image as mpimg
 
 def extract_data(filename, num_images):
     """Extract the images into a 4D tensor [image index, y, x, channels].
