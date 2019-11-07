@@ -3,6 +3,8 @@ import os
 import numpy as np
 import matplotlib.image as mpimg
 
+IMG_PATCH_SIZE = 400
+
 def extract_data(filename, num_images):
     """Extract the images into a 4D tensor [image index, y, x, channels].
     Values are rescaled from [0, 255] down to [-0.5, 0.5].
