@@ -2,7 +2,7 @@
 import os
 import numpy as np
 import matplotlib.image as mpimg
-
+ 
 
 def extract_data(filename, num_images):
     """Extract the images into a 4D tensor [image index, y, x, channels].
@@ -40,3 +40,35 @@ def extract_test_data(filename, num_images):
    
 
     return np.asarray(imgs)
+
+
+
+#helper functions to convert images to grayscale
+# see : https://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
+
+def grayScale(imgs):
+
+    nbr_img = imgs.shape[0]
+
+    gray = []
+
+    for i in range(nbr_img):
+
+        gray.append(grayImage(imgs[i]))
+      
+    return np.asarray(gray)
+
+
+def grayImage(img):
+
+    gray_img = np.zeros((img.shape[0], img.shape[1]))
+
+    for i in range(img.shape[0]):
+
+      for j in range(img.shape[1]):
+
+        pixel = img[i,j] / 255.0
+
+        gray_img[i,j] = 0.2126 * pixel[0] + 0.7152 * pixel[1] + 0.0722 * pixel[2]
+
+    return gray_img
