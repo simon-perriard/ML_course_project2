@@ -72,3 +72,28 @@ def grayImage(img):
         gray_img[i,j] = 0.2126 * pixel[0] + 0.7152 * pixel[1] + 0.0722 * pixel[2]
 
     return gray_img
+
+
+#split data into testing and training set given a ratio
+def split_data(x, y, ratio, seed=1):
+    """
+    split the dataset based on the split ratio. If ratio is 0.8 
+    you will have 80% of your data set dedicated to training 
+    and the rest dedicated to testing
+    """
+    # set seed
+    np.random.seed(seed)
+ 
+    # split the data based on the given ratio
+
+    training_nbr = int(x.shape[0] * ratio)
+    indexes = np.random.choice(x.shape[0],training_nbr, replace=False)
+    
+    x_train = x[indexes]
+    y_train = y[indexes]
+    x_test = np.delete(x, indexes, axis = 0)
+    y_test = np.delete(y, indexes, axis = 0)
+    
+    
+    return x_train, y_train, x_test, y_test
+
