@@ -97,3 +97,35 @@ def split_data(x, y, ratio, seed=1):
     
     return x_train, y_train, x_test, y_test
 
+
+#segment image into small pieces
+def cutImage(data, original_size, new_size):
+
+    if(original_size % new_size != 0):
+        print("Need padding ! cannot divide original image by ",new_size)
+        return None
+
+    res = []
+
+    expend_factor = original_size // new_size
+
+    for i in range(len(data)):
+
+        curr = data[i]
+
+        for j in range(expend_factor):
+
+            strip = curr[j * new_size: (j+1) * new_size]
+            
+            for k in range(expend_factor):
+                
+                cut = strip[:, k * new_size: (k+1) * new_size]
+                
+                res.append(cut)
+                
+    
+    return np.asarray(res)
+
+
+
+
