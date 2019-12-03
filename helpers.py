@@ -127,6 +127,7 @@ def cutImage(data, original_size, new_size):
     return np.asarray(res)
 
 
+#regroup image that was segmented
 def reassemble(data, target_size, actual_size):
 
     if(target_size % actual_size != 0):
@@ -155,9 +156,9 @@ def reassemble(data, target_size, actual_size):
         res.append(tmp_res)
 
 
-    return res
+    return np.array(res)
 
-
+#helper function for reassemble
 def  copyArray(in_d, out_d, column, row, size):
 
     for i in range(len(in_d)):
@@ -170,6 +171,7 @@ def  copyArray(in_d, out_d, column, row, size):
 
     return
 
+#sett pixel values to binary
 def blackOrWhite(data):
 
     for i in range(len(data)):
@@ -179,5 +181,38 @@ def blackOrWhite(data):
       curr_data[curr_data >= 0.5] = 1
       curr_data[curr_data < 0.5] = 0
 
-    return 
+    return data
+
+
+#add padding (1's) to small image to match out_shape
+def pad(data, in_shape, out_shape):
+
+    res = []
+
+    for i in range(len(data)):
+
+        curr_data = data[i]
+
+        tmp_res = np.ones(shape=(out_shape, out_shape))
+
+        copyArray(curr_data, tmp_res, 0,0,0)
+
+        res.append(tmp_res)
+
+    return np.array(res)
+
+
+#remove padding
+def unpad(data, in_shape, out_shape):
+
+    res = []
+
+    for i in range(len(data)):
+
+        curr_data = data[i]
+
+        res.append(curr_data[:out_shape,:out_shape])
+
+
+    return np.array(res)
 
