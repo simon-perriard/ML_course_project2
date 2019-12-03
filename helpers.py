@@ -127,5 +127,45 @@ def cutImage(data, original_size, new_size):
     return np.asarray(res)
 
 
+def reassemble(data, target_size, actual_size):
+
+    if(target_size % actual_size != 0):
+      print("Cannot recreate image without padding !")
+      return None
+
+
+    res = []
+
+    compression_factor = target_size // actual_size
+
+    for i in range(len(data)):
+
+        tmp_res = no.zeros(target_size, target_size)
+
+        for j in range(compression_factor**2):
+
+            curr_row = j % compression_factor
+            curr_data = data[j]
+
+            copyArray(curr_data, tmp_res, j, curr_row, actual_size)
+        
+        res.append(tmp_res)
+
+
+    return res
+
+
+def  copyArray(in_d, out_d, column, row, size):
+
+    for i in range(len(in_d)):
+
+      curr_row = ind_d[i]
+
+      for j in range(len(curr_row)):
+
+        out_d[row *  actual_size + i, column * actual_size + j] = curr_row[j]
+
+    return
+
 
 
