@@ -167,5 +167,14 @@ def  copyArray(in_d, out_d, column, row, size):
 
     return
 
+def blackOrWhite(data):
 
+    for i in range(len(data)):
+
+      curr_data = data[i]
+      
+      curr_data[curr_data >= 0.5] = 1
+      curr_data[curr_data < 0.5] = 0
+
+    return 
 
