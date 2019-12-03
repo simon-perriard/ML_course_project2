@@ -137,17 +137,20 @@ def reassemble(data, target_size, actual_size):
     res = []
 
     compression_factor = target_size // actual_size
+    nrb_target_data = len(data) // compression_factor**2
 
-    for i in range(len(data)):
+    for i in range(nrb_target_data):
 
-        tmp_res = no.zeros(target_size, target_size)
+        #reassemble each image
+        tmp_res = np.zeros(shape=(target_size, target_size))
 
-        for j in range(compression_factor**2):
+        for j in range(compression_factor):
 
-            curr_row = j % compression_factor
-            curr_data = data[j]
+            for k in range(compression_factor):
 
-            copyArray(curr_data, tmp_res, j, curr_row, actual_size)
+                curr_data = data[j * compression_factor + k + i * compression_factor**2]
+
+                copyArray(curr_data, tmp_res, j, k, actual_size)
         
         res.append(tmp_res)
 
@@ -159,11 +162,11 @@ def  copyArray(in_d, out_d, column, row, size):
 
     for i in range(len(in_d)):
 
-      curr_row = ind_d[i]
+      curr_row = in_d[i]
 
       for j in range(len(curr_row)):
 
-        out_d[row *  actual_size + i, column * actual_size + j] = curr_row[j]
+        out_d[row *  size + i, column * size + j] = curr_row[j]
 
     return
 
